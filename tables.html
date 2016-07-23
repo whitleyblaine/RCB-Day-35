@@ -10,13 +10,13 @@
 
 </head>
 <body>
-    
+
 <div class="container">
   <div class="jumbotron text-center">
       <h1>Hot Restaurant</h1>
       <h3>Make your reservations now!!!</h3>
       <hr>
-      <a href="/add"><button type="button" class="btn btn-primary btn-lg" id="viewTables"><span class="glyphicon glyphicon-th-list"></span> View Tables</button></a><a><button type="button" class="btn btn-danger btn-lg" id="viewChar"><span class="glyphicon glyphicon-plus"></span> Make Reservations</button></a>
+      <a href="/tables"><button type="button" class="btn btn-primary btn-lg" id="viewTables"><span class="glyphicon glyphicon-th-list"></span> View Tables</button></a><a href="/add"><button type="button" class="btn btn-danger btn-lg" id="viewChar"><span class="glyphicon glyphicon-plus"></span> Make Reservations</button></a>
   </div>
   <div class="row">
       <div class="col-lg-12">
@@ -24,9 +24,7 @@
               <div class="panel-heading">
                   <h3 class="panel-title"><strong>Current Reservations</strong></h3>
               </div>
-              <div class="panel-body">
-                  <div class="well">
-                  </div>
+              <div class="panel-body" id="wellSection">
               </div>
           </div>
 
@@ -40,3 +38,22 @@
       </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  var currentURL = window.location.origin;
+  console.log(currentURL + "/api");
+  $.get(currentURL + "/api", function(data){
+    for (var i =0; i < data.length; i++){
+        var wellSection = $("<div>");
+        wellSection.addClass('well');
+        wellSection.attr('id', 'characterWell-' + i)
+        $('#wellSection').append(wellSection);
+        $("#characterWell-" + i).append("<h2>" + data[i].customerName + "</h2>");
+        $("#characterWell-" + i).append("<h3>Phone Number: " + data[i].phoneNumber + "</h4>");
+        $("#characterWell-" + i).append("<h3>Customer Email: " + data[i].customerEmail + "</h4>");
+    }
+    console.log(data);
+  })
+</script>
+</body>
+</html>
