@@ -32,7 +32,7 @@
               <div class="panel-heading">
                   <h3 class="panel-title"><strong>Waiting List</strong></h3>
               </div>
-              <div class="panel-body">
+              <div class="panel-body" id="waitingList">
               </div>
           </div>
       </div>
@@ -43,16 +43,24 @@
   var currentURL = window.location.origin;
   console.log(currentURL + "/api");
   $.get(currentURL + "/api", function(data){
-    for (var i =0; i < data.length; i++){
+    for (var i =0; i < data.reservations.length; i++){
         var wellSection = $("<div>");
         wellSection.addClass('well');
         wellSection.attr('id', 'characterWell-' + i)
         $('#wellSection').append(wellSection);
-        $("#characterWell-" + i).append("<h2>" + data[i].customerName + "</h2>");
-        $("#characterWell-" + i).append("<h3>Phone Number: " + data[i].phoneNumber + "</h4>");
-        $("#characterWell-" + i).append("<h3>Customer Email: " + data[i].customerEmail + "</h4>");
-    }
-    console.log(data);
+        $("#characterWell-" + i).append("<h2>" + data.reservations[i].customerName + "</h2>");
+        $("#characterWell-" + i).append("<h3>Phone Number: " + data.reservations[i].phoneNumber + "</h4>");
+        $("#characterWell-" + i).append("<h3>Customer Email: " + data.reservations[i].customerEmail + "</h4>");
+    };
+    for (var i =0; i < data.waiting.length; i++){
+        var waitingList = $("<div>");
+        waitingList.addClass('well');
+        waitingList.attr('id', 'characterWell2-' + i)
+        $('#waitingList').append(wellSection);
+        $("#characterWell2-" + i).append("<h2>" + data.waiting[i].customerName + "</h2>");
+        $("#characterWell2-" + i).append("<h3>Phone Number: " + data.waiting[i].phoneNumber + "</h4>");
+        $("#characterWell2-" + i).append("<h3>Customer Email: " + data.waiting[i].customerEmail + "</h4>");
+    };
   })
 </script>
 </body>

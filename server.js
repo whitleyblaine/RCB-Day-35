@@ -17,6 +17,9 @@ app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
 // Star Wars Characters (DATA)
 // =============================================================
+var waiting = [
+];
+
 var reservations = [
   {
     customerName: "Elizaur Reyes",
@@ -25,6 +28,10 @@ var reservations = [
     customerID: "eli"
   }
 ]
+
+  console.log(reservations);
+  console.log(reservations.length);
+
 
 // Routes
 // =============================================================
@@ -43,19 +50,28 @@ app.get('/tables', function(req, res){
 })
 
 app.get('/api', function(req, res){
-  res.json(reservations);
+  res.json({
+    reservations: reservations,
+    waiting: waiting
+  });
 })
 
 // Create New Characters - takes in JSON input
 app.post('/api/new', function(req, res){
-  console.log(req.body);
 
   var newcustomer = req.body;
-  // newcustomer.routeName = newcustomer.name.replace(/\s+/g, '').toLowerCase()
+  console.log('length', reservations.length);
+  if (reservations.length <= 5){
+    console.log('pushing to reservations', reservations.length);
+    reservations.push(newcustomer);
+  } else {
+    console.log('pushing to waiting', waiting.length);
+    waiting.push(newcustomer);
+  }
 
-  console.log(newcustomer);
+  console.log(reservations);
 
-  reservations.push(newcustomer);
+  console.log(reservations.length);
 
   res.json(newcustomer);
 })

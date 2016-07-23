@@ -51,20 +51,19 @@
 
 <script type="text/javascript">
   $('#addBtn').on("click", function(){
-      var newCharacter =
-      {
-          customerName: $("#name").val().trim(),
-          phoneNumber: $("#number").val().trim(),
-          customerEmail: $("#email").val().trim(),
-      };
-      var currentURL = window.location.origin;
-      // Question: What does this code do??
-      $.post( currentURL + "/api/new", newCharacter)
-          .done(function(data){
-              console.log(data);
-              alert("Adding character...")
-          })
-      return false;
+    var newCharacter =
+    {
+        customerName: $("#name").val().trim(),
+        phoneNumber: $("#number").val().trim(),
+        customerEmail: $("#email").val().trim(),
+    };
+    var currentURL = window.location.origin;
+    // Question: What does this code do??
+    $.post( currentURL + "/api/new", newCharacter)
+        .done(function(data){
+            alert("Adding character...")
+        })
+    return false;
   });
 </script>
 </body>
